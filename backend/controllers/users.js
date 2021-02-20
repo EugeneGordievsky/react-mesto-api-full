@@ -4,6 +4,7 @@ const User = require('../models/user');
 const NotFoundError = require('../errors/not-found-err');
 const NotValidError = require('../errors/not-valid-err');
 const AuthError = require('../errors/auth-err');
+const UniqueError = require('../errors/unique-err');
 
 module.exports.getUsers = (req, res, next) => {
   User.find({})
@@ -17,7 +18,7 @@ module.exports.getUserById = (req, res, next) => {
     .then((user) => res.send(user))
     .catch((err) => {
       if (err.name === 'DocumentNotFoundError') {
-        next(new NotFoundError('Нет пользователя с таким ID'));
+        next(new NotFoundError('Пользователь с данным ID не найден'));
       }
       if (err.name === 'CastError' || err.name === 'ValidationError') {
         next(new NotValidError('Переданы некорректные данные'));
@@ -44,7 +45,15 @@ module.exports.createUser = (req, res, next) => {
       password: hash,
     }))
     .then((user) => res.send(user))
-    .catch(() => next(new NotValidError('Переданы некорректные данные')));
+    .catch((err) => {
+      if (err.name === 'CastError' || err.name === 'ValidationError') {
+        next(new NotValidError('Переданы некорректные данные'));
+      }
+      if (err.name === 'MongoError') {
+        next(new UniqueError('Этот Email уже зарегистрирован'));
+      }
+      next(err);
+    });
 };
 
 module.exports.updateProfile = (req, res, next) => {
@@ -91,7 +100,7 @@ module.exports.login = (req, res, next) => {
         maxAge: 3600000 * 24 * 7,
         httpOnly: true,
       });
-      res.send(token);
+      res.send(user);
     })
     .catch(() => next(new AuthError('Ошибка авторизации')));
 };
