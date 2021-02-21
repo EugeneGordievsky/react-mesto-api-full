@@ -1,7 +1,6 @@
 require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
-const cors = require('cors');
 const mongoose = require('mongoose');
 const cardsRouter = require('./routes/cards');
 const usersRouter = require('./routes/users');
@@ -32,9 +31,6 @@ app.use('/cards', auth, cardsRouter);
 app.use('/users', auth, usersRouter);
 
 app.use(errorLogger);
-
-app.use(cors());
-app.options('*', cors());
 
 app.use((req, res) => {
   res.status(404).send({ message: 'Запрашиваемый ресурс не найден' });
