@@ -19,8 +19,6 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
   useUnifiedTopology: true,
 });
 
-app.options('*', cors());
-app.use(cors());
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -34,6 +32,9 @@ app.use('/cards', auth, cardsRouter);
 app.use('/users', auth, usersRouter);
 
 app.use(errorLogger);
+
+app.use(cors());
+app.options('*', cors());
 
 app.use((req, res) => {
   res.status(404).send({ message: 'Запрашиваемый ресурс не найден' });
