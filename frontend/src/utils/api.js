@@ -69,13 +69,13 @@ class Api {
 
   changeLikeCardStatus(id, isLiked) {
     if (isLiked) {
-      return fetch(this._options.baseUrl + "/cards/likes/" + id, {
+      return fetch(this._options.baseUrl + "/cards/" + id + "/likes/" , {
         method: "PUT",
         headers: this._options.headers
       })
       .then((res) => this._checkResponse(res))
     } else {
-      return fetch(this._options.baseUrl + "/cards/likes/" + id, {
+      return fetch(this._options.baseUrl + "/cards/" + id + "/likes/", {
         method: "DELETE",
         headers: this._options.headers
       })
@@ -94,9 +94,8 @@ class Api {
 }
 
 export const api = new Api({
-  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-17",
+  baseUrl: "http://api.eugene.gordievsky.students.nomoreparties.space",
   headers: {
-    authorization: "761b2eed-9b1d-4590-81a1-cb393f952eaa",
     'Content-Type': 'application/json'
   }
 });

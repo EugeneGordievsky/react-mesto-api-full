@@ -47,9 +47,9 @@ function App() {
     .then((res) => {
       if(res.token) {
         localStorage.setItem("jwt", res.token);
-        setHeaderEmail(email);
-        setLoggedIn(true);
       }
+      setHeaderEmail(email);
+      setLoggedIn(true);
     })
     .catch((err) => {
       console.log(err);

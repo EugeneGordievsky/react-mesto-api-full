@@ -41,9 +41,10 @@ class Auth {
   checkToken (token) {
     return fetch(`${this._options.baseUrl}/users/me`, {
       method: "GET",
+      credentials: 'include',
       headers: {
         "Content-Type": "application/json",
-        "Authorization" : `Bearer ${token}`
+        // "Authorization" : `Bearer ${token}`
       },
     })
     .then((res) => this._checkResponse(res))
@@ -51,5 +52,5 @@ class Auth {
 }
 
 export const auth = new Auth({
-  baseUrl: "https://auth.nomoreparties.co",
+  baseUrl: "http://api.eugene.gordievsky.students.nomoreparties.space",
 })
