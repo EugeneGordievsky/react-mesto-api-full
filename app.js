@@ -34,9 +34,9 @@ app.use('/users', auth, usersRouter);
 
 app.use(errorLogger);
 
-app.use((req, res) => {
-  res.status(404).send({ message: 'Запрашиваемый ресурс не найден' });
-});
+// app.use((req, res) => {
+//   res.status(404).send({ message: 'Запрашиваемый ресурс не найден' });
+// });
 
 app.use((err, req, res, next) => {
   const { statusCode = 500, message } = err;
