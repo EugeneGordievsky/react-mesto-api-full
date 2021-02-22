@@ -34,11 +34,13 @@ class Auth {
     .then((res) => this._checkResponse(res))
   }
 
-  checkToken () {
+  checkToken (token) {
     return fetch(`${this._options.baseUrl}/users/me`, {
       method: "GET",
-      credentials: 'include',
-      headers: this._options.headers,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization" : `Bearer ${token}`
+      }
     })
     .then((res) => this._checkResponse(res))
   }

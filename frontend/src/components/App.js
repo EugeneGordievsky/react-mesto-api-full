@@ -45,9 +45,11 @@ function App() {
   const onLogin = (email, password) => {
     auth.authorize(email, password)
     .then((res) => {
+      console.log(res)
       if(res.token) {
         localStorage.setItem("jwt", res.token);
       }
+
       setHeaderEmail(email);
       setLoggedIn(true);
     })
@@ -128,9 +130,9 @@ function App() {
 
   React.useEffect(() => {
     const token = localStorage.getItem("jwt");
-
+    console.log(token);
     if (token) {
-      auth.checkToken()
+      auth.checkToken(token)
       .then((res) => {
         setLoggedIn(true);
         setHeaderEmail(res.data.email);
@@ -143,22 +145,18 @@ function App() {
   }, [])
 
   React.useEffect(() => {
-    if (loggedIn === true) {
-      api.getInitialCards()
-      .then((cards) => setCardsArray(cards))
-      .catch((err) => console.log(err))
-    }
-  }, [loggedIn]);
+    api.getInitialCards()
+    .then((cards) => setCardsArray(cards))
+    .catch((err) => console.log(err))
+  }, []);
 
   React.useEffect(() => {
-    if (loggedIn === true) {
-      api.getUserInfo()
-      .then((userInfo) => {
-        setUserInfo(userInfo)
-      })
-      .catch((err) => console.log(err))
-    }
-  }, [loggedIn]);
+    api.getUserInfo()
+    .then((userInfo) => {
+      setUserInfo(userInfo)
+    })
+    .catch((err) => console.log(err))
+  }, []);
 
   return (
   <CurrentUserContext.Provider value={currentUser}>
