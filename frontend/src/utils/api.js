@@ -12,6 +12,7 @@ class Api {
 
   getUserInfo() {
     return fetch(this._options.baseUrl + "/users/me", {
+      method: "GET",
       headers: this._options.headers
     })
     .then((res) => this._checkResponse(res))
@@ -97,6 +98,6 @@ export const api = new Api({
   baseUrl: "http://api.eugene.gordievsky.students.nomoreparties.space",
   headers: {
     'Content-Type': 'application/json',
-    // 'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+    'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
   }
 });
