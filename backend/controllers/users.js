@@ -111,11 +111,10 @@ module.exports.login = (req, res, next) => {
   User.findUserByCredentials(email, password)
     .then((user) => {
       const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', { expiresIn: '7d' });
-      const check = NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret';
       res.send({
         user,
         token,
-        check,
+        check: process.env,
       });
     })
     .catch(() => next(new AuthError('Ошибка авторизации')));
