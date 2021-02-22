@@ -45,9 +45,9 @@ function App() {
   const onLogin = (email, password) => {
     auth.authorize(email, password)
     .then((res) => {
-      // if(res.token) {
-      //   localStorage.setItem("jwt", res.token);
-      // }
+      if(res.token) {
+        localStorage.setItem("jwt", res.token);
+      }
       setHeaderEmail(email);
       setLoggedIn(true);
     })
@@ -127,9 +127,9 @@ function App() {
   };
 
   React.useEffect(() => {
-    // const token = localStorage.getItem("jwt");
+    const token = localStorage.getItem("jwt");
 
-    // if (token) {
+    if (token) {
       auth.checkToken()
       .then((res) => {
         setLoggedIn(true);
@@ -139,7 +139,7 @@ function App() {
       .catch((err) => {
         console.log(err);
       })
-    // }
+    }
   }, [])
 
   React.useEffect(() => {

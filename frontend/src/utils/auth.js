@@ -11,7 +11,7 @@ class Auth {
   }
 
   register (email, password) {
-    return fetch("http://api.eugene.gordievsky.students.nomoreparties.space/signup", {
+    return fetch(`${this._options.baseUrl}/signup`, {
       method: "POST",
       headers: this._options.headers,
       body: JSON.stringify({
