@@ -27,7 +27,7 @@ module.exports.getUserById = (req, res, next) => {
     });
 };
 
-module.exports.getUsersMe = (req, res, next) => {
+module.exports.getProfile = (req, res, next) => {
   User.findById(req.user._id)
     .orFail()
     .then((user) => res.send(user))

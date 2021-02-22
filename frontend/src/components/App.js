@@ -133,8 +133,9 @@ function App() {
     if (token) {
       auth.checkToken(token)
       .then((res) => {
+        console.log(res)
         setLoggedIn(true);
-        setHeaderEmail(res.data.email);
+        setHeaderEmail(res.user.email);
         history.push("./");
       })
       .catch((err) => {
@@ -151,15 +152,15 @@ function App() {
     }
   }, [loggedIn]);
 
-  React.useEffect(() => {
-    if (loggedIn) {
-      api.getUserInfo()
-      .then((userInfo) => {
-        setUserInfo(userInfo)
-      })
-      .catch((err) => console.log(err))
-    }
-  }, [loggedIn]);
+  // React.useEffect(() => {
+  //   if (loggedIn) {
+  //     api.getUserInfo()
+  //     .then((userInfo) => {
+  //       setUserInfo(userInfo)
+  //     })
+  //     .catch((err) => console.log(err))
+  //   }
+  // }, [loggedIn]);
 
   return (
   <CurrentUserContext.Provider value={currentUser}>
