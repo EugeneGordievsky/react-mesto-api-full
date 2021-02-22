@@ -29,8 +29,8 @@ app.use(requestLogger);
 app.post('/signin', login);
 app.post('/signup', createUser);
 
-app.use('/cards', auth, cardsRouter);
-app.use('/users', auth, usersRouter);
+app.use('/cards', cardsRouter);
+app.use('/users', usersRouter);
 
 app.use(errorLogger);
 

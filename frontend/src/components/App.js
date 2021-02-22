@@ -45,7 +45,6 @@ function App() {
   const onLogin = (email, password) => {
     auth.authorize(email, password)
     .then((res) => {
-      console.log(res)
       if(res.token) {
         localStorage.setItem("jwt", res.token);
       }
@@ -145,18 +144,22 @@ function App() {
   }, [])
 
   React.useEffect(() => {
-    api.getInitialCards()
-    .then((cards) => setCardsArray(cards))
-    .catch((err) => console.log(err))
-  }, []);
+    if (loggedIn) {
+      api.getInitialCards()
+      .then((cards) => setCardsArray(cards))
+      .catch((err) => console.log(err))
+    }
+  }, [loggedIn]);
 
   React.useEffect(() => {
-    api.getUserInfo()
-    .then((userInfo) => {
-      setUserInfo(userInfo)
-    })
-    .catch((err) => console.log(err))
-  }, []);
+    if (loggedIn) {
+      api.getUserInfo()
+      .then((userInfo) => {
+        setUserInfo(userInfo)
+      })
+      .catch((err) => console.log(err))
+    }
+  }, [loggedIn]);
 
   return (
   <CurrentUserContext.Provider value={currentUser}>
