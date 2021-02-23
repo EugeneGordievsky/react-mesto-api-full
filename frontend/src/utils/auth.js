@@ -42,7 +42,7 @@ class Auth {
         "Authorization" : `Bearer ${token}`,
       }
     })
-    // .then((res) => this._checkResponse(res))
+    .then((res) => this._checkResponse(res))
   }
 }
 
