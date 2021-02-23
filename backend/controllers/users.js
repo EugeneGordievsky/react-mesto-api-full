@@ -29,7 +29,6 @@ module.exports.getUserById = (req, res, next) => {
 
 module.exports.getProfile = (req, res, next) => {
   User.findById(req.user._id)
-    .orFail()
     .then((user) => res.send(user))
     .catch((err) => {
       if (err.name === 'DocumentNotFoundError') {
@@ -114,7 +113,6 @@ module.exports.login = (req, res, next) => {
       res.send({
         user,
         token,
-        check: process.env,
       });
     })
     .catch(() => next(new AuthError('Ошибка авторизации')));

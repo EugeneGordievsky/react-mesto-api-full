@@ -51,6 +51,7 @@ function App() {
 
       setHeaderEmail(email);
       setLoggedIn(true);
+      history.push('/')
     })
     .catch((err) => {
       console.log(err);
