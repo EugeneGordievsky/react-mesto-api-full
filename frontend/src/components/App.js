@@ -53,9 +53,7 @@ function App() {
       setLoggedIn(true);
       history.push('/')
     })
-    .catch((err) => {
-      console.log(`Error: ${err.status} - ${err.message}`);
-    })
+    .catch((err) => console.log(err))
   }
 
   const onRegister = (email, password) => {
@@ -68,7 +66,7 @@ function App() {
     .catch((err) => {
       setRegister(false);
       openInfoTooltip(true);
-      console.log(`Error: ${err.status} - ${err.message}`);
+      console.log(err);
     })
   };
 
@@ -79,7 +77,7 @@ function App() {
       const newCards = cards.map((c) => c._id === card._id ? newCard : c);
       setCardsArray(newCards);
     })
-    .catch((err) => console.log(`Error: ${err.status} - ${err.message}`));
+    .catch((err) => console.log(err));
   };
 
   const handleCardDelete = (card) => {
@@ -87,7 +85,7 @@ function App() {
     .then(() => setCardsArray(cards.filter((c) => {
       return c._id !== card._id;
     })))
-    .catch((err) => console.log(`Error: ${err.status} - ${err.message}`));
+    .catch((err) => console.log(err));
   };
 
   const handleUpdateUser = (item) => {
@@ -96,7 +94,7 @@ function App() {
       setUserInfo(userInfo);
       closeAllPopups();
     })
-    .catch((err) => console.log(`Error: ${err.status} - ${err.message}`));
+    .catch((err) => console.log(err));
   };
 
   const handleUpdateAvatar = (item) => {
@@ -105,7 +103,7 @@ function App() {
       setUserInfo(userInfo);
       closeAllPopups();
     })
-    .catch((err) => console.log(`Error: ${err.status} - ${err.message}`));
+    .catch((err) => console.log(err));
   };
 
   const handleAddPlaceSubmit = (item) => {
@@ -114,7 +112,7 @@ function App() {
       setCardsArray([newCard, ...cards]);
       closeAllPopups();
     })
-    .catch((err) => console.log(`Error: ${err.status} - ${err.message}`));
+    .catch((err) => console.log(err));
   };
 
   const closeAllPopups = () => {

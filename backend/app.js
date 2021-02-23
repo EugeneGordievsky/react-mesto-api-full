@@ -41,7 +41,7 @@ app.use((req, res) => {
 app.use((err, req, res, next) => {
   const { statusCode = 500, message } = err;
 
-  err
+  res
     .status(statusCode)
     .send({
       message: statusCode === 500
