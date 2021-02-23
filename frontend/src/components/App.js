@@ -131,26 +131,34 @@ function App() {
     const token = localStorage.getItem("jwt");
     console.log(token);
     if (token) {
-      auth.checkToken(token)
-      .then((res) => {
-        console.log(res)
-        setLoggedIn(true);
-        setHeaderEmail(res.user.email);
-        history.push("./");
+      Promise.all([
+        api.getUserInfo(),
+        api.getInitialCards(),
+      ])
+      .then(([user, cards]) => {
+        setUserInfo(user);
+        setCardsArray(cards);
       })
+      // auth.checkToken(token)
+      // .then((res) => {
+      //   console.log(res)
+      //   setLoggedIn(true);
+      //   setHeaderEmail(res.user.email);
+      //   history.push("./");
+      // })
       .catch((err) => {
         console.log(err);
       })
     }
   }, [])
 
-  React.useEffect(() => {
-    if (loggedIn) {
-      api.getInitialCards()
-      .then((cards) => setCardsArray(cards))
-      .catch((err) => console.log(err))
-    }
-  }, [loggedIn]);
+  // React.useEffect(() => {
+  //   if (loggedIn) {
+  //     api.getInitialCards()
+  //     .then((cards) => setCardsArray(cards))
+  //     .catch((err) => console.log(err))
+  //   }
+  // }, [loggedIn]);
 
   // React.useEffect(() => {
   //   if (loggedIn) {
