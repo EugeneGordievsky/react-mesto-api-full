@@ -7,7 +7,7 @@ class Api {
     if (result.ok) {
       return result.json();
     }
-    return Promise.reject(`Произошла ошибка: ${result.status}:${result.statusText}`)
+    return Promise.reject(`Произошла ошибка: ${result.status}:${result.message}`)
   }
 
   getUserInfo() {

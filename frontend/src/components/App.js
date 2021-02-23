@@ -45,13 +45,13 @@ function App() {
   const onLogin = (email, password) => {
     auth.authorize(email, password)
     .then((res) => {
+      setLoggedIn(true);
+      setUserInfo(res.user);
+      setHeaderEmail(email);
+      history.push('/')
       if(res.token) {
         localStorage.setItem("jwt", res.token);
       }
-      setUserInfo(res.user);
-      setHeaderEmail(email);
-      setLoggedIn(true);
-      history.push('/')
     })
     .catch((err) => console.log(err))
   }
@@ -130,13 +130,9 @@ function App() {
     const token = localStorage.getItem("jwt");
 
     if (token) {
-      Promise.all([
-        api.getUserInfo(),
-        api.getInitialCards(),
-      ])
-      .then(([user, cards]) => {
+      api.getUserInfo()
+      .then((user) => {
         setUserInfo(user);
-        setCardsArray(cards);
         setLoggedIn(true);
         setHeaderEmail(user.email);
         history.push("./");
@@ -146,6 +142,14 @@ function App() {
       })
     }
   }, [])
+
+  React.useEffect(() => {
+    if (loggedIn) {
+      api.getInitialCards()
+      .then((cards) => setCardsArray(cards))
+      .catch((err) => console.log(err))
+    }
+  }, [loggedIn])
 
   // React.useEffect(() => {
   //   const token = localStorage.getItem("jwt");
