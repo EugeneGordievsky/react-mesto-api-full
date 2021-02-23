@@ -115,5 +115,5 @@ module.exports.login = (req, res, next) => {
         token,
       });
     })
-    .catch(() => next(new AuthError('Ошибка авторизации')));
+    .catch(() => next(new AuthError('Неправильный Email или пароль')));
 };

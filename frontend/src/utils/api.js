@@ -98,5 +98,6 @@ export const api = new Api({
   baseUrl: "http://api.eugene.gordievsky.students.nomoreparties.space",
   headers: {
     'Content-Type': 'application/json',
+    'Authorization': `Bearer ${localStorage.getItem('jwt')}`
   }
 });
