@@ -71,7 +71,7 @@ function App() {
   };
 
   const handleCardLike = (card) => {
-    const isLiked = card.likes.some(owner => owner._id === currentUser._id);
+    const isLiked = card.likes.some(owner => owner === currentUser._id);
     api.changeLikeCardStatus(card._id, !isLiked)
     .then((newCard) => {
       const newCards = cards.map((c) => c._id === card._id ? newCard : c);
@@ -146,41 +146,10 @@ function App() {
   React.useEffect(() => {
     if (loggedIn) {
       api.getInitialCards()
-      .then((cards) => setCardsArray(cards))
+      .then((cards) => setCardsArray(cards.reverse()))
       .catch((err) => console.log(err))
     }
   }, [loggedIn])
-
-  // React.useEffect(() => {
-  //   const token = localStorage.getItem("jwt");
-  //   if (token) {
-  //     auth.checkToken(token)
-  //       .then((res) => {
-  //         console.log(res)
-  //         setLoggedIn(true);
-  //         setHeaderEmail(res.user.email);
-  //         history.push("./");
-  //       })
-  //       .catch((err) => console.log(err));
-  //   }
-  // }, []);
-  // React.useEffect(() => {
-  //   if (loggedIn) {
-  //     api.getInitialCards()
-  //     .then((cards) => setCardsArray(cards))
-  //     .catch((err) => console.log(err))
-  //   }
-  // }, [loggedIn]);
-
-  // React.useEffect(() => {
-  //   if (loggedIn) {
-  //     api.getUserInfo()
-  //     .then((userInfo) => {
-  //       setUserInfo(userInfo)
-  //     })
-  //     .catch((err) => console.log(err))
-  //   }
-  // }, [loggedIn]);
 
   return (
   <CurrentUserContext.Provider value={currentUser}>
