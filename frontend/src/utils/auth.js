@@ -36,7 +36,7 @@ class Auth {
 }
 
 export const auth = new Auth({
-  baseUrl: "http://api.eugene.gordievsky.students.nomoreparties.space",
+  baseUrl: "https://api.eugene.gordievsky.students.nomoreparties.space",
   headers: {
     'Content-Type': 'application/json'
   }
