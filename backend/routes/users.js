@@ -10,7 +10,7 @@ router.get('/:_id', getUserById);
 router.patch('/me', celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30).message('От 2 до 30 символов'),
-    about: Joi.string().min(2).max(30),
+    about: Joi.string().min(2).max(30).message('От 2 до 30 символов'),
   }),
 }), updateProfile);
 router.patch('/me/avatar', celebrate({
