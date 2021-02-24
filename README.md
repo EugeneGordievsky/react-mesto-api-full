@@ -19,4 +19,5 @@
 * Использованы технологии React
 
 
-API будет доступна по адресу 'http://localhost:3000'
+API доступна по IP-адресу '84.201.171.49', а так же по домену 'api.eugene.gordievsky.students.nomoreparties.space'
+Сайт доступен по адресу 'eugene.gordievsky.students.nomoreparties.space'
