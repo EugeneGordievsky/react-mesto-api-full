@@ -25,6 +25,7 @@ module.exports.createCard = (req, res, next) => {
 module.exports.deleteCard = (req, res, next) => {
   Card.findById(req.params.cardId)
     .then((card) => {
+      if (!card) throw new NotFoundError('Данные не найдены');
       if (!card.owner.equals(req.user._id)) {
         throw new RootError('Ошибка доступа');
       }

@@ -6,16 +6,20 @@ const {
 
 router.get('/', getUsers);
 router.get('/me', getProfile);
-router.get('/:_id', getUserById);
+router.get('/:_id', celebrate({
+  params: Joi.object().keys({
+    _id: Joi.string().alphanum().length(24),
+  }),
+}), getUserById);
 router.patch('/me', celebrate({
   body: Joi.object().keys({
-    name: Joi.string().min(2).max(30).message('От 2 до 30 символов'),
-    about: Joi.string().min(2).max(30).message('От 2 до 30 символов'),
+    name: Joi.string().required().min(2).max(30),
+    about: Joi.string().required().min(2).max(30),
   }),
 }), updateProfile);
 router.patch('/me/avatar', celebrate({
   body: Joi.object().keys({
-    avatar: Joi.string().pattern(/^https?:\/\/(w{3}\.)?[\w\-.~:/?#[\]@!$&'\\()*+,;=]/),
+    avatar: Joi.string().required().pattern(/^https?:\/\/(w{3}\.)?[\w\-.~:/?#[\]@!$&'\\()*+,;=]/),
   }),
 }), updateAvatar);
 
