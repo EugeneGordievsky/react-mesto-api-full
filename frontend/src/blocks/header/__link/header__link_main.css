@@ -3,3 +3,9 @@
   background: none;
   border: none;
 }
+
+@media screen and (max-width: 530px) {
+  .header__link_main {
+    display: none;
+  };
+}

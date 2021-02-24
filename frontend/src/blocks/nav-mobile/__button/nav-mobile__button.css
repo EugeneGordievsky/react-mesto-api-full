@@ -1,0 +1,13 @@
+.nav-mobile__button {
+  background-color: #000;
+  border: none;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+  color: #A9A9A9;
+  margin: 18px auto 0;
+}
+
+.nav-mobile__button:hover {
+  cursor: pointer;
+}

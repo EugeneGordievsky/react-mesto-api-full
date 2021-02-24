@@ -1,0 +1,12 @@
+.nav-mobile {
+  padding: 40px 0;
+  border-bottom: 1px solid rgba(84, 84, 84, .7);
+  display: none;
+  flex-direction: column;
+}
+
+@media screen and (min-width: 531px) {
+  .nav-mobile {
+    display: none;
+  }
+}

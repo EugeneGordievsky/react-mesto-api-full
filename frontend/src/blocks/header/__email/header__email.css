@@ -4,3 +4,9 @@
   line-height: 22px;
   margin: auto 24px auto auto;
 }
+
+@media screen and (max-width: 530px) {
+  .header__email {
+    display: none;
+  };
+}

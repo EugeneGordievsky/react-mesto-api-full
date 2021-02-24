@@ -6,7 +6,12 @@
 @import url("./blocks/header/__link/header__link.css");
 @import url("./blocks/header/__link/header__link_main.css");
 @import url("./blocks/header/__email/header__email.css");
-@import url("./blocks/header/__nav/header__nav.css");
+@import url("./blocks/header/__mobile-nav/header__mobile-nav.css");
+@import url("./blocks/header/__mobile-nav/header__mobile-nav_close.css");
+@import url("./blocks/nav-mobile/nav-mobile.css");
+@import url("./blocks/nav-mobile/nav-mobile_open.css");
+@import url("./blocks/nav-mobile/__email/nav-mobile__email.css");
+@import url("./blocks/nav-mobile/__button/nav-mobile__button.css");
 @import url("./blocks/authorization/authorization.css");
 @import url("./blocks/authorization/__title/authorization__title.css");
 @import url("./blocks/authorization/__submit-button/authorization__submit-button.css");

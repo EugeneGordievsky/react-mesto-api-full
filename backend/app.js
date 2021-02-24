@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const { celebrate, Joi, errors } = require('celebrate');
 const mongoose = require('mongoose');
 const cardsRouter = require('./routes/cards');
 const usersRouter = require('./routes/users');
@@ -26,8 +27,23 @@ app.use(bodyParser.json());
 
 app.use(requestLogger);
 
-app.post('/signin', login);
-app.post('/signup', createUser);
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
+app.post('/signin', celebrate({
+  body: Joi.object().keys({
+    email: Joi.string().required().email().message('Требуется Email'),
+    password: Joi.string().required().min(8).message('Минимум 8 символов'),
+  }),
+}), login);
+app.post('/signup', celebrate({
+  body: Joi.object().keys({
+    email: Joi.string().required().email().message('Требуется Email'),
+    password: Joi.string().required().min(8).message('Минимум 8 символов'),
+  }),
+}), createUser);
 
 app.use('/cards', auth, cardsRouter);
 app.use('/users', auth, usersRouter);
@@ -38,6 +54,7 @@ app.use((req, res) => {
   res.status(404).send({ message: 'Запрашиваемый ресурс не найден' });
 });
 
+app.use(errors());
 app.use((err, req, res, next) => {
   const { statusCode = 500, message } = err;
 

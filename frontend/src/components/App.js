@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Switch, useHistory } from 'react-router-dom';
 import Header from "./Header";
+import MobileNav from "./MobileNav";
 import Main from "./Main";
 import ProtectedRoute from "./ProtectedRoute";
 import Login from "./Login";
@@ -23,6 +24,7 @@ function App() {
   const [isAddPlacePopupOpen, openAddPlace] = React.useState(false);
   const [isEditAvatarPopupOpen, openEditAvatar] = React.useState(false);
   const [infoTooltip, openInfoTooltip] = React.useState(false)
+  const [isMobileNav, openMobileNav] = React.useState(false);
   const [cards, setCardsArray] = React.useState([]);
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [isRegister, setRegister] = React.useState(false);
@@ -38,6 +40,7 @@ function App() {
 
   const onSignOut = () => {
     setLoggedIn(false);
+    openMobileNav(false);
     localStorage.removeItem("jwt");
     history.push("./sign-in");
   }
@@ -45,13 +48,13 @@ function App() {
   const onLogin = (email, password) => {
     auth.authorize(email, password)
     .then((res) => {
+      if(res.token) {
+        localStorage.setItem("jwt", res.token);
+      }
       setLoggedIn(true);
       setUserInfo(res.user);
       setHeaderEmail(email);
       history.push('/')
-      if(res.token) {
-        localStorage.setItem("jwt", res.token);
-      }
     })
     .catch((err) => console.log(err))
   }
@@ -61,7 +64,7 @@ function App() {
     .then(() => {
       setRegister(true);
       openInfoTooltip(true);
-
+      history.push('/');
     })
     .catch((err) => {
       setRegister(false);
@@ -154,14 +157,13 @@ function App() {
   return (
   <CurrentUserContext.Provider value={currentUser}>
   <div className="page">
-    { loggedIn && <Header loggedIn={loggedIn} headerEmail={headerEmail} onSignOut={onSignOut} /> }
+  <MobileNav headerEmail={headerEmail} onSignOut={onSignOut} isMobileNav={isMobileNav} />
+  <Header headerEmail={headerEmail} onSignOut={onSignOut} openMobileNav={openMobileNav} isMobileNav={isMobileNav} />
     <Switch>
       <Route exact path="/sign-in">
-        { !loggedIn && <Header loggedIn={loggedIn} link="./sign-up" linkText="Регистрация" /> }
         <Login onLogin={onLogin} />
       </Route>
       <Route exact path="/sign-up">
-        { !loggedIn && <Header loggedIn={loggedIn} link="./sign-in" linkText="Вход" /> }
         <Register onRegister={onRegister} />
       </Route>
       <ProtectedRoute path="/" loggedIn={loggedIn} component={Main} onEditProfile = {openEditProfile}

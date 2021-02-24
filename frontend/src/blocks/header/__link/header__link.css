@@ -4,8 +4,16 @@
   color: #fff;
   text-decoration: none;
   align-self: center;
+  margin: auto 19px auto 0;
 }
 
 .header__link:hover {
   cursor: pointer;
+}
+
+@media screen and (max-width: 530px) {
+  .header__link {
+    font-size: 14px;
+    line-height: 17px;
+  }
 }

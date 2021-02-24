@@ -5,3 +5,9 @@
   display: flex;
   flex-direction: column;
 }
+
+@media screen and (max-width: 530px) {
+  .authorization__form {
+    width: 260px;
+  }
+}
