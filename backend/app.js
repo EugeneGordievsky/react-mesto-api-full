@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const { celebrate, Joi, errors } = require('celebrate');
+const { celebrate, Joi, errors, CelebrateError } = require('celebrate');
 const mongoose = require('mongoose');
 const cardsRouter = require('./routes/cards');
 const usersRouter = require('./routes/users');
@@ -10,6 +10,7 @@ const { createUser, login } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const NotFoundError = require('./errors/not-found-err');
+const NotValidError = require('./errors/not-valid-err');
 
 const app = express();
 const { PORT = 3000 } = process.env;
@@ -55,7 +56,14 @@ app.use(() => {
   throw new NotFoundError('Запрашиваемый ресурс не найден');
 });
 
-app.use(errors());
+// app.use(errors());
+app.use((err, req, res, next) => {
+  if (err instanceof CelebrateError) {
+    next(new NotValidError('Переданы некорректные данные'));
+  }
+  res.status(500).send({ message: err.message });
+});
+
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
   const { statusCode = 500, message } = err;
@@ -68,4 +76,5 @@ app.use((err, req, res, next) => {
         : message,
     });
 });
+
 app.listen(PORT, () => {});

@@ -67,7 +67,7 @@ module.exports.createUser = (req, res, next) => {
       },
     }))
     .catch((err) => {
-      if (err.name === 'CastError' || err.name === 'ValidationError') {
+      if (err.name === 'CastError' || err.name === 'ValidationError' || err.error === 'Bad Request') {
         next(new NotValidError('Переданы некорректные данные'));
       }
       if (err.name === 'MongoError') {
