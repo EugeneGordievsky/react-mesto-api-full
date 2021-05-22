@@ -17,7 +17,3 @@
 * Работа с DOM
 * Работа с классами в JS
 * Использованы технологии React
-
-
-API доступна по IP-адресу '84.201.171.49', а так же по домену 'api.eugene.gordievsky.students.nomoreparties.space'
-Сайт доступен по адресу 'eugene.gordievsky.students.nomoreparties.space'
